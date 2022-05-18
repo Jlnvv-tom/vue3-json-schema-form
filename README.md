@@ -1,29 +1,15 @@
 # vue3-json-schema-form
 
-## Project setup
-```
-npm install
-```
+## 实现目标
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- 1、 确定组件的接口和定义
+- 2、 开发入口组件的实现
+- 3、 开发基础渲染的实现
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Props
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 1、 schema
+- 2 、value
+- 3 、locale
+- 4 、onChange
+- 5 、uiSchema
