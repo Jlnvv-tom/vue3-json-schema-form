@@ -13,3 +13,7 @@
 - 3 、locale
 - 4 、onChange
 - 5 、uiSchema
+
+## 初步实现效果
+
+![image.png](./public/img/ts-form.gif)

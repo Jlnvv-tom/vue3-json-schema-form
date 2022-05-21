@@ -90,8 +90,8 @@ export default defineComponent({
           editor.pushUndoStop()
           _prevent_trigger_change_event = true
 
-          // pushEdirOprations says it expects a cursorCumputer,but doesn't seem to need one
-          model.pushEdirOprations(
+          // pushEditOperations says it expects a cursorCumputer,but doesn't seem to need one
+          model.pushEditOperations(
             [],
             [
               {

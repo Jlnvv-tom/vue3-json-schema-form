@@ -1,6 +1,9 @@
-import { defineComponent, PropType } from 'vue'
-
+import { defineComponent, PropType, provide } from 'vue'
 import { Schema, SchemaTypes } from './types'
+import SchemaItems from './SchemaItems'
+import { SchemaFormContextKey } from './context'
+
+type A = typeof SchemaItems
 
 export default defineComponent({
   props: {
@@ -16,15 +19,28 @@ export default defineComponent({
   },
   name: 'SchemaForm',
   setup(props, { slots, emit, attrs }) {
+    console.log(props)
+    const handleChange = (value: any) => {
+      props.onChange!(value)
+    }
+
+    const context = {
+      SchemaItems,
+    }
+
+    provide(SchemaFormContextKey, context)
+
     return () => {
-      const schema = props.schema
-      const type = schema?.type
-      switch (type) {
-        case SchemaTypes.STRING: {
-          return <input type="text"></input>
-        }
-      }
-      return <div>This is Form</div>
+      const { schema, value } = props
+
+      return (
+        <SchemaItems
+          schema={schema}
+          rootSchema={schema!}
+          value={value}
+          onChange={handleChange}
+        />
+      )
     }
   },
 })

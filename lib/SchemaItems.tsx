@@ -1,47 +1,55 @@
-import { defineComponent, PropType } from 'vue'
-import { Schema, SchemaTypes } from './types'
-import StringFeild from './fields/StringField'
-import NumberFeild from './fields/NumberField'
+import { computed, defineComponent } from 'vue'
+import { SchemaTypes, FieldPropsDefine } from './types'
+import StringField from './fields/StringField'
+import NumberField from './fields/NumberField'
+import ObjectField from './fields/ObjectField'
+import ArrayField from './fields/ArrayField'
+import { retrieveSchema } from './utils'
 
 export default defineComponent({
   name: 'SchemaItems',
-  props: {
-    schema: {
-      type: Object as PropType<Schema>,
-    },
-    value: {
-      required: true,
-    },
-    onChange: {
-      type: Function as PropType<(val: any) => void>,
-      required: true,
-    },
-  },
+  props: FieldPropsDefine,
 
   setup(props) {
+    const retrievedSchemaRef = computed(() => {
+      const { schema, rootSchema, value } = props
+      return retrieveSchema(schema, rootSchema, value)
+    })
+
     return () => {
       const { schema } = props
 
+      const retrievedSchema = retrievedSchemaRef.value
+
       // TODO 如果type 没有指定， 我们需要猜测这个type
 
-      const type = schema.type
+      const type = schema!.type
+      // console.log('type---------',type);
 
       let Component: any
 
       switch (type) {
         case SchemaTypes.STRING: {
-          Component = StringFeild
+          Component = StringField
           break
         }
         case SchemaTypes.NUMBER: {
-          Component = NumberFeild
+          Component = NumberField
+          break
+        }
+        case SchemaTypes.OBJECT: {
+          Component = ObjectField
+          break
+        }
+        case SchemaTypes.ARRAY: {
+          Component = ArrayField
           break
         }
         default: {
           console.warn(`${type} is not supported`)
         }
       }
-      return <Component {...props} />
+      return <Component {...props} schema={retrievedSchema} />
     }
   },
 })
