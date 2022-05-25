@@ -1,8 +1,34 @@
 export default {
   name: 'Demo',
   schema: {
-    type: 'number',
+    type: 'array',
   },
   uiSchema: {},
-  default: 1,
+  default: {
+    staticArray: {
+      type: 'array',
+      items: [
+        {
+          type: 'string',
+        },
+        {
+          type: 'number',
+        },
+      ],
+    },
+    singleTypeArray: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: {
+            type: 'string',
+          },
+          age: {
+            type: 'number',
+          },
+        },
+      },
+    },
+  },
 }

@@ -21,7 +21,7 @@ export default defineComponent({
   setup(props) {
     const context = useVJSFContext()
 
-    const handleObjectFieldChanges = (key: string, val: any) => {
+    const handleObjectFieldChange = (key: string, val: any) => {
       const value: any = isObject(props.value) ? props.value : {}
 
       if (val === undefined) delete value[key]
@@ -39,15 +39,15 @@ export default defineComponent({
 
       const currentValue: any = isObject(value) ? value : {}
 
-      return Object.keys(properties).map((key: string, index: number) => {
-        ;<SchemaItem
+      return Object.keys(properties).map((key: string, index: number) => (
+        <SchemaItem
           key={index}
           schema={properties[key]}
           rootSchema={rootSchema}
           value={currentValue}
-          onChange={(val: any) => handleObjectFieldChanges(key, val)}
+          onChange={(val: any) => handleObjectFieldChange(key, val)}
         />
-      })
+      ))
     }
   },
 })
